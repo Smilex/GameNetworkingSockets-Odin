@@ -29,12 +29,8 @@ run :: proc() {
         bytes, err := net.recv_tcp(custom_socket, buf[:])
         fmt.printf("%v bytes\n", bytes)
         if err != nil {
-            if (err == net.TCP_Recv_Error.Would_Block) {
-                continue
-            } else {
-                fmt.printf("err = %v\n", err)
-                return
-            }
+            fmt.printf("err = %v\n", err)
+            continue
         }
 
 
@@ -170,7 +166,7 @@ debug_output :: proc(nType: gns.ESocketsDebugOutputType, pszMsg: cstring) {
 }
 
 main :: proc() {
-    gns.Identity_ParseString(&local_identity, size_of(local_identity), "ip:62.107.66.120")
+    gns.Identity_ParseString(&local_identity, size_of(local_identity), "ip:127.0.0.1:2")
     err_msg: gns.DatagramErrMsg
     if !gns.Init(&local_identity, err_msg) {
         fmt.eprintln("Unable to init GameNetworkingSockets")

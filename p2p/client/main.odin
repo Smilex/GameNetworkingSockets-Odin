@@ -27,12 +27,8 @@ run :: proc() {
     for custom_runner {
         bytes, err := net.recv_tcp(custom_socket, buf[:])
         if err != nil {
-            if (err == net.TCP_Recv_Error.Would_Block) {
-                continue
-            } else {
-                fmt.printf("err = %v\n", err)
-                return
-            }
+            fmt.printf("err = %v\n", err)
+            continue
         }
 
         if bytes == 0 {
@@ -161,7 +157,7 @@ debug_output :: proc(nType: gns.ESocketsDebugOutputType, pszMsg: cstring) {
 }
 
 main :: proc() {
-    gns.Identity_ParseString(&local_identity, size_of(local_identity), "ip:127.0.0.1")
+    gns.Identity_ParseString(&local_identity, size_of(local_identity), "ip:127.0.0.1:1")
     err_msg: gns.DatagramErrMsg
     if !gns.Init(&local_identity, err_msg) {
         fmt.eprintln("Unable to init GameNetworkingSockets")
@@ -208,7 +204,7 @@ main :: proc() {
 
     thread.create_and_start(run)
 
-    gns.Identity_ParseString(&remote_identity, size_of(remote_identity), "ip:62.107.66.120")
+    gns.Identity_ParseString(&remote_identity, size_of(remote_identity), "ip:127.0.0.1:2")
 
     custom_signaling = gns.CreateCustomSignaling(nil, custom_send_signal, custom_release)
     connection = gns.ConnectP2PCustomSignaling(gns_interface, custom_signaling, &remote_identity, remote_port, 1, raw_data(options[:]))

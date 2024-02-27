@@ -512,8 +512,11 @@ FSteamNetworkingSocketsCustomSignaling_Release :: proc(ctx: rawptr)
 FSteamNetworkingCustomSignalingRecvContext_OnConnectRequest :: proc(ctx: rawptr, hConn: HSteamNetConnection, identityPeer: ^Identity, nLocalVirtualPort: libc.int) -> ConnectionSignalingPtr
 FSteamNetworkingCustomSignalingRecvContext_SendRejectionSignal :: proc(ctx: rawptr, identityPeer: ^Identity, pMsg: rawptr, cbMsg: libc.int)
 
-
-foreign import gamenetworkingsockets "GameNetworkingSockets.lib"
+when ODIN_OS == .Windows {
+    foreign import gamenetworkingsockets "GameNetworkingSockets.lib"
+} else when ODIN_OS == .Linux {
+    foreign import gamenetworkingsockets "system:GameNetworkingSockets"
+}
 
 @(link_prefix="GameNetworkingSockets_")
 foreign gamenetworkingsockets {

@@ -3,7 +3,7 @@ package test_server
 import "core:fmt"
 import "core:time"
 import "core:strings"
-import gns "../gamenetworkingsockets"
+import gns "../"
 
 gns_interface: gns.SocketsPtr
 poll_group: gns.HSteamNetPollGroup
