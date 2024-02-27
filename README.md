@@ -15,8 +15,7 @@ Keep in mind that you'll need to compile GameNetworkingSockets with WebRTC suppo
 After you've compiled GameNetworkingSockets, copy the .lib into the "GameNetworkingSockets-Odin" top directory, and the necessary .DLLs need to be present with the executable
 
 ## Platforms
-Currently I've only tested this on Windows
-I expect the only necessary change for other platforms, is to load the correct library in the Odin foreign interface, that this project uses
+Currently I've tested this on Windows and Linux
 
 ## Building examples
 The examples in this project were just built with "odin build ."
